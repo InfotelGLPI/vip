@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-11 16:14+0200\n"
+"PO-Revision-Date: 2016-12-19 08:53+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.5\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: inc/group.class.php:56
+msgid "VIP management"
+msgstr "VIP management"
+
+#: inc/group.class.php:60
+msgid "VIP group"
+msgstr "VIP group"
+
+#: inc/group.class.php:79 inc/profile.class.php:51 inc/profile.class.php:126
+msgid "VIP"
+msgstr "VIP"
+
+#: inc/profile.class.php:38
+msgid "Rights management"
+msgstr "Rights management"
+
+#: inc/ticket.class.php:201
+#, php-format
+msgid "VIP : %s tickets updated"
+msgstr "VIP : %s tickets updated"
