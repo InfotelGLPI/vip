@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: GLPI - VIP plugin 1.1.1\n"
+"Project-Id-Version: GLPI - VIP plugin 1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 08:47+0100\n"
+"POT-Creation-Date: 2017-10-24 09:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: inc/dashboard.class.php:14 inc/dashboard.class.php:172
+#: inc/dashboard.class.php:42 inc/dashboard.class.php:196
 msgid "Tickets VIP"
 msgstr ""
 
@@ -25,15 +25,15 @@ msgstr ""
 msgid "VIP management"
 msgstr ""
 
-#: inc/group.class.php:66 inc/group.class.php:134
+#: inc/group.class.php:66 inc/group.class.php:135
 msgid "VIP group"
 msgstr ""
 
-#: inc/group.class.php:86 inc/profile.class.php:52 inc/profile.class.php:127
-#: inc/vip.class.php:45
+#: inc/group.class.php:86 inc/profile.class.php:53 inc/profile.class.php:132
+#: inc/vip.class.php:46
 msgid "VIP"
 msgstr ""
 
-#: inc/rulevipcollection.class.php:47
+#: inc/rulevipcollection.class.php:48
 msgid "Rules for assigning a group"
 msgstr ""
