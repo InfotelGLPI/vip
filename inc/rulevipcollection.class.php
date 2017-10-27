@@ -37,7 +37,7 @@ if (!defined('GLPI_ROOT')) {
 class PluginVipRuleVipCollection extends RuleCollection {
 
    // From RuleCollection
-   public static $right       = 'plugin_vip';
+   public static $rightname   = 'plugin_vip';
    public        $menu_option = 'vip';
 
    /**
