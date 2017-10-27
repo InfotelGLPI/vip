@@ -41,8 +41,8 @@ if (!defined('GLPI_ROOT')) {
 class PluginVipRuleVip extends Rule {
 
    // From Rule
-   public static $right    = 'plugin_vip';
-   public        $can_sort = true;
+   public static $rightname = 'plugin_vip';
+   public        $can_sort  = true;
 
    /**
     * @return translated
