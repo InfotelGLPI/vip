@@ -30,17 +30,17 @@
 function plugin_version_vip() {
 
    return array('name'           => "VIP",
-                'version'        => '1.4.0',
+                'version'        => '1.5.0',
                 'author'         => 'Probesys & Infotel',
                 'license'        => 'GPLv2+',
                 'homepage'       => 'https://github.com/InfotelGLPI/vip',
-                'minGlpiVersion' => '9.2');
+                'minGlpiVersion' => '9.3');
 }
 
 function plugin_vip_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION, '9.2', 'lt')) {
-      echo "This plugin requires GLPI >= 9.2";
+   if (version_compare(GLPI_VERSION, '9.3', 'lt')) {
+      echo "This plugin requires GLPI >= 9.3";
       return false;
    }
    return true;

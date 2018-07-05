@@ -128,7 +128,7 @@ class PluginVipProfile extends Profile {
    static function getAllRights($all = false) {
 
       $rights = array(
-         array('itemtype' => 'PluginVipTicket',
+         array('itemtype' => 'PluginVipGroup',
                'label'    => __('VIP', 'vip'),
                'field'    => 'plugin_vip'
          )

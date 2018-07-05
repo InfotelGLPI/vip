@@ -31,7 +31,7 @@ function plugin_vip_install() {
    global $DB;
    // Création de la table uniquement lors de la première installation
    if (!$DB->tableExists("glpi_plugin_vip_groups")) {
-      $DB->runFile(GLPI_ROOT . "/plugins/vip/install/sql/empty-1.1.2.sql");
+      $DB->runFile(GLPI_ROOT . "/plugins/vip/install/sql/empty-1.5.0.sql");
    }
 
    if ($DB->tableExists('glpi_plugin_vip_tickets')) {
