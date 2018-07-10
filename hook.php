@@ -102,7 +102,7 @@ function plugin_vip_getAddSearchOptions($itemtype) {
 
    $sopt = array();
 
-   if (isset($_SESSION['glpiactiveprofile']['interface']) && $_SESSION['glpiactiveprofile']['interface'] == 'central'
+   if (Session::getCurrentInterface() == 'central'
        && Session::haveRight('plugin_vip', READ)) {
       switch ($itemtype) {
          case 'Ticket':

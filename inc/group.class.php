@@ -139,7 +139,7 @@ class PluginVipGroup extends CommonDBTM {
 
       $sopt = array();
 
-      if ($_SESSION['glpiactiveprofile']['interface'] == 'central' && Session::haveRight('plugin_vip', READ)) {
+      if (Session::getCurrentInterface() == 'central' && Session::haveRight('plugin_vip', READ)) {
          $rng1                         = 150;
          $sopt[$rng1]['table']         = 'glpi_plugin_vip_groups';
          $sopt[$rng1]['field']         = 'isvip';
