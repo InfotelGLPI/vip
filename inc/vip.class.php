@@ -82,8 +82,8 @@ class PluginVipVip extends CommonDBTM {
          //Store rule that matched
          if (isset($fields['groups_id'])) {
             $groupuser = new Group_User();
-
-            if (!$groupuser->getFromDBByQuery("WHERE `users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id'])) {
+            if (!$groupuser->getFromDBByCrit(['users_id' => $user->getID(),
+                                              'groups_id' => $fields['groups_id']])) {
                $groupuser->add(array('users_id'  => $user->getID(),
                                      'groups_id' => $fields['groups_id']));
             }
@@ -127,7 +127,8 @@ class PluginVipVip extends CommonDBTM {
          if (isset($fields['groups_id'])) {
             $groupuser = new Group_User();
 
-            if (!$groupuser->getFromDBByQuery("WHERE `users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id'])) {
+            if (!$groupuser->getFromDBByCrit(['users_id' => $user->getID(),
+                                              'groups_id' => $fields['groups_id']])) {
                $groupuser->add(array('users_id'  => $user->getID(),
                                      'groups_id' => $fields['groups_id']));
             }
