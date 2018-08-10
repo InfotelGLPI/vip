@@ -30,7 +30,7 @@
 function plugin_version_vip() {
 
    return array('name'           => "VIP",
-                'version'        => '1.5.0',
+                'version'        => '1.5.1',
                 'author'         => 'Probesys & Infotel',
                 'license'        => 'GPLv2+',
                 'homepage'       => 'https://github.com/InfotelGLPI/vip',
