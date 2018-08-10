@@ -96,9 +96,10 @@ class PluginVipRuleVip extends Rule {
     */
    function getCriterias() {
 
+      $dbu = new DbUtils();
       $criterias         = array();
       $criterias['ldap'] = __('LDAP criteria');
-      foreach (getAllDatasFromTable('glpi_rulerightparameters', '', true) as $datas) {
+      foreach ($dbu->getAllDataFromTable('glpi_rulerightparameters', [], true) as $datas) {
          $criterias[$datas["value"]]['name']      = $datas["name"];
          $criterias[$datas["value"]]['field']     = $datas["value"];
          $criterias[$datas["value"]]['linkfield'] = '';

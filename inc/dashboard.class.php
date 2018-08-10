@@ -46,6 +46,7 @@ class PluginVipDashboard extends CommonGLPI {
    public function getWidgetContentForItem($widgetId) {
       global $DB;
 
+      $dbu = new DbUtils();
       switch ($widgetId) {
 
          case $this->getType() . "1":
@@ -129,7 +130,7 @@ class PluginVipDashboard extends CommonGLPI {
                      foreach ($ticket->getUsers(CommonITILActor::REQUESTER) as $u) {
                         $k = $u['users_id'];
                         if ($k) {
-                           $userdata .= getUserName($k);
+                           $userdata .= $dbu->getUserName($k);
                         }
 
 
@@ -159,7 +160,7 @@ class PluginVipDashboard extends CommonGLPI {
                      foreach ($ticket->getUsers(CommonITILActor::ASSIGN) as $u) {
                         $k = $u['users_id'];
                         if ($k) {
-                           $techdata .= getUserName($k);
+                           $techdata .= $dbu->getUserName($k);
                         }
 
 

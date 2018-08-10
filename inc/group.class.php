@@ -107,6 +107,7 @@ class PluginVipGroup extends CommonDBTM {
    }
 
    function getVipUsers() {
+      $dbu = new DbUtils();
 
       $groups = $this->find("`isvip` = 1");
       if (isset($groups[0])) {
@@ -115,9 +116,8 @@ class PluginVipGroup extends CommonDBTM {
 
       $vip = array();
       if (count($groups) > 0) {
-         $restrict = "`groups_id` IN (" . implode(',', array_keys($groups)) . ")";
-         $managers = getAllDatasFromTable('glpi_groups_users', $restrict);
-
+         $restrict = ["groups_id" => [implode(',', array_keys($groups))]];
+         $managers = $dbu->getAllDataFromTable('glpi_groups_users', $restrict);
 
          foreach ($managers as $manager) {
             $vip[]['id'] = $manager['users_id'];
