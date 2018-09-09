@@ -63,11 +63,11 @@ class PluginVipVip extends CommonDBTM {
          }
 
          if ($ds) {
-            $info = AuthLdap::getUserByDn($ds, $user->fields['user_dn'], array());
+            $info = AuthLdap::getUserByDn($ds, $user->fields['user_dn'], []);
 
          }
 
-         $input = array();
+         $input = [];
          foreach ($criterias as $criteria) {
             if (isset($criteria['field']) && isset($info[$criteria['field']]) && isset($info[$criteria['field']][0])) {
                $input[$criteria['field']] = $info[$criteria['field']][0];
@@ -75,17 +75,17 @@ class PluginVipVip extends CommonDBTM {
          }
 
          $ruleCollection = new PluginVipRuleVipCollection($user->fields['entities_id']);
-         $fields         = array();
+         $fields         = [];
 
-         $fields = $ruleCollection->processAllRules($input, $fields, array());
+         $fields = $ruleCollection->processAllRules($input, $fields, []);
 
          //Store rule that matched
          if (isset($fields['groups_id'])) {
             $groupuser = new Group_User();
 
             if (!$groupuser->getFromDBByCrit(["`users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id']])) {
-               $groupuser->add(array('users_id'  => $user->getID(),
-                                     'groups_id' => $fields['groups_id']));
+               $groupuser->add(['users_id'  => $user->getID(),
+                                     'groups_id' => $fields['groups_id']]);
             }
          }
       }
@@ -107,11 +107,11 @@ class PluginVipVip extends CommonDBTM {
          }
 
          if ($ds) {
-            $info = AuthLdap::getUserByDn($ds, $user->fields['user_dn'], array());
+            $info = AuthLdap::getUserByDn($ds, $user->fields['user_dn'], []);
 
          }
 
-         $input = array();
+         $input = [];
          foreach ($criterias as $criteria) {
             if (isset($criteria['field']) && isset($info[$criteria['field']]) && isset($info[$criteria['field']][0])) {
                $input[$criteria['field']] = $info[$criteria['field']][0];
@@ -119,17 +119,17 @@ class PluginVipVip extends CommonDBTM {
          }
 
          $ruleCollection = new PluginVipRuleVipCollection($user->fields['entities_id']);
-         $fields         = array();
+         $fields         = [];
 
-         $fields = $ruleCollection->processAllRules($input, $fields, array());
+         $fields = $ruleCollection->processAllRules($input, $fields, []);
 
          //Store rule that matched
          if (isset($fields['groups_id'])) {
             $groupuser = new Group_User();
 
             if (!$groupuser->getFromDBByCrit(["`users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id']])) {
-               $groupuser->add(array('users_id'  => $user->getID(),
-                                     'groups_id' => $fields['groups_id']));
+               $groupuser->add(['users_id'  => $user->getID(),
+                                     'groups_id' => $fields['groups_id']]);
             }
          }
       }

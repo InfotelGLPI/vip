@@ -38,8 +38,8 @@ switch ($_POST['action']) {
    case 'getTicket':
       header('Content-Type: application/json; charset=UTF-8"');
 
-      $params = array('entities_id' => (is_array($_SESSION['glpiactiveentities']) ? json_encode(array_values($_SESSION['glpiactiveentities'])) : $_SESSION['glpiactiveentities']),
-                      'used'        => array());
+      $params = ['entities_id' => (is_array($_SESSION['glpiactiveentities']) ? json_encode(array_values($_SESSION['glpiactiveentities'])) : $_SESSION['glpiactiveentities']),
+                      'used'        => []];
 
       if (isset($_POST['items_id'])) {
          $ticket = new Ticket();
@@ -47,15 +47,15 @@ switch ($_POST['action']) {
          $ticket->getFromDB($_POST['items_id']);
          $actors = $actor->getActors($_POST['items_id']);
 
-         $used = array();
+         $used = [];
          if (isset($actors[CommonITILActor::REQUESTER])) {
             foreach ($actors[CommonITILActor::REQUESTER] as $requesters) {
                $used[] = $requesters['users_id'];
             }
          }
 
-         $params = array('used'        => $used,
-                         'entities_id' => $ticket->fields['entities_id']);
+         $params = ['used'        => $used,
+                         'entities_id' => $ticket->fields['entities_id']];
       }
 
       echo json_encode($params);

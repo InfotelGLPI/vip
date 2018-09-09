@@ -41,7 +41,7 @@ switch ($_POST['action']) {
             $vip_group = new PluginVipGroup();
             $vip       = $vip_group->getVipUsers();
 
-            $params                            = array();
+            $params                            = [];
             $params['page_limit']              = $CFG_GLPI['dropdown_max'];
             $params['root_doc']                = $CFG_GLPI['root_doc'];
             $params['minimumResultsForSearch'] = $CFG_GLPI['ajax_limit_count'];
