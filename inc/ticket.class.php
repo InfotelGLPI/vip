@@ -33,7 +33,7 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginVipTicket extends CommonDBTM {
 
-   static $types = array('Ticket');
+   static $types = ['Ticket'];
 
    static function isUserVip($uid) {
       global $DB;

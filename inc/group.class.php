@@ -38,7 +38,7 @@ class PluginVipGroup extends CommonDBTM {
    /**
     * Configuration form
     * */
-   function showForm($id, $options = array()) {
+   function showForm($id, $options = []) {
 
       $target = $this->getFormURL();
       if (isset($options['target'])) {
@@ -103,7 +103,7 @@ class PluginVipGroup extends CommonDBTM {
 
    function createVip($ID) {
 
-      $this->add(array('id' => $ID));
+      $this->add(['id' => $ID]);
    }
 
    function getVipUsers() {
@@ -114,7 +114,7 @@ class PluginVipGroup extends CommonDBTM {
          unset($groups[0]);
       }
 
-      $vip = array();
+      $vip = [];
       if (count($groups) > 0) {
          $restrict = ["groups_id" => [implode(',', array_keys($groups))]];
          $managers = $dbu->getAllDataFromTable('glpi_groups_users', $restrict);
@@ -132,12 +132,12 @@ class PluginVipGroup extends CommonDBTM {
     * @return type
     */
    function massiveActions() {
-      return array("PluginVipGroup:isvip" => __('Update') . " " . __('VIP group', 'vip'));
+      return ["PluginVipGroup:isvip" => __('Update') . " " . __('VIP group', 'vip')];
    }
 
    function getAddSearchOptions() {
 
-      $sopt = array();
+      $sopt = [];
 
       if (Session::getCurrentInterface() == 'central' && Session::haveRight('plugin_vip', READ)) {
          $rng1                         = 150;
@@ -157,7 +157,7 @@ class PluginVipGroup extends CommonDBTM {
     * */
    static function showMassiveActionsSubForm(MassiveAction $ma) {
       Dropdown::showYesNo('isvip');
-      echo "<br><br>" . Html::submit(_x('button', 'Save'), array('name' => 'massiveaction'));
+      echo "<br><br>" . Html::submit(_x('button', 'Save'), ['name' => 'massiveaction']);
       return true;
    }
 
@@ -178,16 +178,16 @@ class PluginVipGroup extends CommonDBTM {
             foreach ($ids as $id) {
                //Item has alreaddy
                if ($vip->getFromDB($id)) {
-                  $update = array(
+                  $update = [
                      "id"    => $id,
                      "isvip" => $input['isvip']
-                  );
+                  ];
                   $vip->update($update);
                   $ma->itemDone($item->getType(), $id, MassiveAction::ACTION_OK);
                } else { //Item has no vip yet
-                  $update = array(
+                  $update = [
                      "isvip" => $input['isvip']
-                  );
+                  ];
                   $vip->add($update);
                   $ma->itemDone($item->getType(), $id, MassiveAction::ACTION_OK);
                }

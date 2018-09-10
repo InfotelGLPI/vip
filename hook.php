@@ -35,7 +35,7 @@ function plugin_vip_install() {
    }
 
    if ($DB->tableExists('glpi_plugin_vip_tickets')) {
-      $tables = array("glpi_plugin_vip_tickets");
+      $tables = ["glpi_plugin_vip_tickets"];
 
       foreach ($tables as $table) {
          $DB->query("DROP TABLE IF EXISTS `$table`;");
@@ -51,21 +51,21 @@ function plugin_vip_install() {
 function plugin_vip_uninstall() {
    global $DB;
 
-   $tables = array("glpi_plugin_vip_profiles",
-                   "glpi_plugin_vip_groups",
-                   "glpi_plugin_vip_tickets");
+   $tables = ["glpi_plugin_vip_profiles",
+              "glpi_plugin_vip_groups",
+              "glpi_plugin_vip_tickets"];
 
    foreach ($tables as $table)
       $DB->query("DROP TABLE IF EXISTS `$table`;");
 
-   $tables_glpi = array("glpi_displaypreferences",
-                        "glpi_documents_items",
-                        "glpi_savedsearches",
-                        "glpi_logs",
-                        "glpi_items_tickets",
-                        "glpi_contracts_items",
-                        "glpi_notepads",
-                        "glpi_dropdowntranslations");
+   $tables_glpi = ["glpi_displaypreferences",
+                   "glpi_documents_items",
+                   "glpi_savedsearches",
+                   "glpi_logs",
+                   "glpi_items_tickets",
+                   "glpi_contracts_items",
+                   "glpi_notepads",
+                   "glpi_dropdowntranslations"];
 
    foreach ($tables_glpi as $table_glpi)
       $DB->query("DELETE FROM `$table_glpi` WHERE `itemtype` LIKE 'PluginVip%';");
@@ -80,7 +80,7 @@ function plugin_vip_uninstall() {
    //Delete rights associated with the plugin
    $profileRight = new ProfileRight();
    foreach (PluginVipProfile::getAllRights() as $right) {
-      $profileRight->deleteByCriteria(array('name' => $right['field']));
+      $profileRight->deleteByCriteria(['name' => $right['field']]);
    }
 
    PluginVipProfile::removeRightsFromSession();
@@ -91,16 +91,16 @@ function plugin_vip_getPluginsDatabaseRelations() {
 
    $plugin = new Plugin();
    if ($plugin->isActivated("vip"))
-      return array(
-         "glpi_groups" => array("glpi_plugin_vip_groups" => "id")
-      );
+      return [
+         "glpi_groups" => ["glpi_plugin_vip_groups" => "id"]
+      ];
    else
-      return array();
+      return [];
 }
 
 function plugin_vip_getAddSearchOptions($itemtype) {
 
-   $sopt = array();
+   $sopt = [];
 
    if (Session::getCurrentInterface() == 'central'
        && Session::haveRight('plugin_vip', READ)) {
@@ -133,7 +133,7 @@ function plugin_vip_MassiveActions($type) {
       $vip = new PluginVipGroup();
       return $vip->massiveActions();
    }
-   return array();
+   return [];
 }
 
 function plugin_vip_addLeftJoin($type, $ref_table, $new_table, $linkfield, &$already_link_tables) {

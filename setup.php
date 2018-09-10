@@ -29,12 +29,12 @@
 
 function plugin_version_vip() {
 
-   return array('name'           => "VIP",
-                'version'        => '1.5.1',
-                'author'         => 'Probesys & Infotel',
-                'license'        => 'GPLv2+',
-                'homepage'       => 'https://github.com/InfotelGLPI/vip',
-                'minGlpiVersion' => '9.3');
+   return ['name'           => "VIP",
+           'version'        => '1.5.1',
+           'author'         => 'Probesys & Infotel',
+           'license'        => 'GPLv2+',
+           'homepage'       => 'https://github.com/InfotelGLPI/vip',
+           'minGlpiVersion' => '9.3'];
 }
 
 function plugin_vip_check_prerequisites() {
@@ -58,40 +58,40 @@ function plugin_init_vip() {
 
    $PLUGIN_HOOKS['csrf_compliant']['vip'] = true;
 
-   Plugin::registerClass('PluginVipProfile', array('addtabon' => array('Profile')));
-   $PLUGIN_HOOKS['change_profile']['vip'] = array('PluginVipProfile', 'changeProfile');
+   Plugin::registerClass('PluginVipProfile', ['addtabon' => ['Profile']]);
+   $PLUGIN_HOOKS['change_profile']['vip'] = ['PluginVipProfile', 'changeProfile'];
 
    if (Session::haveRight('plugin_vip', UPDATE)) {
-      Plugin::registerClass('PluginVipGroup', array('addtabon' => array('Group')));
+      Plugin::registerClass('PluginVipGroup', ['addtabon' => ['Group']]);
       $PLUGIN_HOOKS['use_massive_action']['vip'] = 1;
       Plugin::registerClass('PluginVipTicket');
    }
 
    if (class_exists('PluginMydashboardMenu')) {
-      $PLUGIN_HOOKS['mydashboard']['vip'] = array("PluginVipDashboard");
+      $PLUGIN_HOOKS['mydashboard']['vip'] = ["PluginVipDashboard"];
    }
 
    if (Session::haveRight('plugin_vip', READ)) {
       $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip.js';
-      $PLUGIN_HOOKS['javascript']['vip']       = array(
+      $PLUGIN_HOOKS['javascript']['vip']       = [
          "/plugins/vip/vip.js",
-      );
+      ];
       if (class_exists('PluginVipTicket')) {
          foreach (PluginVipTicket::$types as $item) {
             if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], strtolower($item) . ".form.php") !== false) {
                $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip_load_scripts.js';
-               $PLUGIN_HOOKS['javascript']['vip']       = array(
+               $PLUGIN_HOOKS['javascript']['vip']       = [
                   "/plugins/vip/vip_load_scripts.js",
-               );
+               ];
             }
          }
       }
    }
 
-   $PLUGIN_HOOKS['item_add']['vip']    = array('User' => array('PluginVipVip', 'afterAdd'));
-   $PLUGIN_HOOKS['item_update']['vip'] = array('User' => array('PluginVipVip', 'afterUpdate'));
+   $PLUGIN_HOOKS['item_add']['vip']    = ['User' => ['PluginVipVip', 'afterAdd']];
+   $PLUGIN_HOOKS['item_update']['vip'] = ['User' => ['PluginVipVip', 'afterUpdate']];
 
-   Plugin::registerClass('PluginVipRuleVipCollection', array(
+   Plugin::registerClass('PluginVipRuleVipCollection', [
       'rulecollections_types' => true
-   ));
+   ]);
 }

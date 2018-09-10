@@ -97,7 +97,7 @@ class PluginVipRuleVip extends Rule {
    function getCriterias() {
 
       $dbu = new DbUtils();
-      $criterias         = array();
+      $criterias         = [];
       $criterias['ldap'] = __('LDAP criteria');
       foreach ($dbu->getAllDataFromTable('glpi_rulerightparameters', [], true) as $datas) {
          $criterias[$datas["value"]]['name']      = $datas["name"];
@@ -114,7 +114,7 @@ class PluginVipRuleVip extends Rule {
     * @return array
     */
    function getActions() {
-      $actions = array();
+      $actions = [];
 
       $actions['groups_id']['name']  = __('Group');
       $actions['groups_id']['type']  = 'dropdown';

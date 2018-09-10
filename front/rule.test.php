@@ -63,7 +63,7 @@ Html::popHeader(__('Setup'), $_SERVER['PHP_SELF']);
 $rule->showRulePreviewCriteriasForm($_SERVER['PHP_SELF'], $rules_id);
 
 if (isset($_POST["test_rule"])) {
-   $params = array();
+   $params = [];
    //Unset values that must not be processed by the rule
    unset($_POST["test_rule"]);
    unset($_POST["rules_id"]);
@@ -78,7 +78,7 @@ if (isset($_POST["test_rule"])) {
    $params = $rule->addSpecificParamsForPreview($params);
 
    $input = $rule->prepareAllInputDataForProcess($_POST, $params);
-   //$rule->regex_results = array();
+   //$rule->regex_results = [];
    echo "<br>";
    $rule->showRulePreviewResultsForm($_SERVER['PHP_SELF'], $input, $params);
 }

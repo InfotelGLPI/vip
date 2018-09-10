@@ -29,18 +29,18 @@
 
 class PluginVipDashboard extends CommonGLPI {
 
-   public  $widgets = array();
+   public  $widgets = [];
    private $options;
    private $datas, $form;
 
-   public function __construct($_options = array()) {
+   public function __construct($_options = []) {
       $this->options = $_options;
    }
 
    function getWidgetsForItem() {
-      return array(
+      return [
          $this->getType() . "1" => __("Tickets VIP", "mydashboard"),
-      );
+      ];
    }
 
    public function getWidgetContentForItem($widgetId) {
@@ -56,7 +56,7 @@ class PluginVipDashboard extends CommonGLPI {
             $link_ticket = Toolbox::getItemTypeFormURL("Ticket");
 
             $mygroups = Group_User::getUserGroups(Session::getLoginUserID(), "`is_assign`");
-            $groups   = array();
+            $groups   = [];
             foreach ($mygroups as $mygroup) {
                $groups[] = $mygroup["id"];
             }
@@ -76,14 +76,14 @@ class PluginVipDashboard extends CommonGLPI {
             $query .= "ORDER BY `glpi_tickets`.`time_to_resolve` DESC";//
 
             $widget  = PluginMydashboardHelper::getWidgetsFromDBQuery('table', $query);
-            $headers = array(__('ID'), _n('Requester', 'Requesters', 2), __('Status'), __('Time to resolve'), __('Assigned to technicians'));
+            $headers = [__('ID'), _n('Requester', 'Requesters', 2), __('Status'), __('Time to resolve'), __('Assigned to technicians')];
             $widget->setTabNames($headers);
 
             $result = $DB->query($query);
             $nb     = $DB->numrows($result);
 
-            $datas   = array();
-            $tickets = array();
+            $datas   = [];
+            $tickets = [];
 
             if ($nb) {
                while ($data = $DB->fetch_assoc($result)) {
@@ -92,7 +92,7 @@ class PluginVipDashboard extends CommonGLPI {
                   $ticket->getFromDB($data['tickets_id']);
 
                   if ($ticket->countUsers(CommonITILActor::REQUESTER)) {
-                     $users = array();
+                     $users = [];
                      foreach ($ticket->getUsers(CommonITILActor::REQUESTER) as $u) {
                         $users[] = $u['users_id'];
                      }
