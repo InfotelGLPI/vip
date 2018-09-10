@@ -157,7 +157,6 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
    $searchopt = &Search::getOptions($type);
    $table     = $searchopt[$ID]["table"];
    $field     = $searchopt[$ID]["field"];
-
    switch ($type) {
       case 'Ticket':
          switch ($table . '.' . $field) {

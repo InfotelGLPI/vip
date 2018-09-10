@@ -73,7 +73,7 @@ class PluginVipTicket extends CommonDBTM {
             }
          }
       }
-      return $isvip;
+      return true;
    }
 
 }

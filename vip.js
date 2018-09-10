@@ -101,14 +101,14 @@
                                     },
                                     success: function (response, opts) {
                                         // Replace requester dropdown select2
-                                        $("input[name='" + inputName + "']").select2({
+                                        $("select[name='" + inputName + "']").select2({
                                             width: '80%',
                                             closeOnSelect: false,
                                             minimumInputLength: 0,
                                             quietMillis: 100,
                                             minimumResultsForSearch: object.params['minimumResultsForSearch'],
                                             ajax: {
-                                                url: object.params['root_doc'] + '/ajax/getDropdownUsers.php',
+                                                url: object.params['root_doc'] + '/plugins/vip/ajax/getDropdownUsers.php',
                                                 dataType: 'json',
                                                 type: 'POST',
                                                 data: function (term, page) {
@@ -117,7 +117,7 @@
                                                         right: 'all',
                                                         used: response.used,
                                                         entity_restrict: response.entities_id,
-                                                        searchText: term,
+                                                        searchText: term.term,
                                                         page_limit: object.params['page_limit'], // page size
                                                         page: page, // page number
                                                     };
@@ -128,6 +128,7 @@
                                                 }
                                             },
                                             initSelection: function (element, callback) {
+
                                                 var id = $(element).val();
                                                 var defaultid = '0';
                                                 if (id !== '') {
@@ -139,7 +140,7 @@
                                                         };
                                                         callback(data);
                                                     } else {
-                                                        $.ajax(object.params['root_doc'] + '/ajax/getDropdownUsers.php', {
+                                                        $.ajax(object.params['root_doc'] + '/plugins/vip/ajax/getDropdownUsers.php', {
                                                             data: {
                                                                 all: 0,
                                                                 right: "all",
@@ -154,48 +155,47 @@
                                                         });
                                                     }
                                                 }
-
                                             },
-                                            formatResult: function (result, container, query, escapeMarkup) {
-                                                // Red if VIP
-                                                $.each(vip, function (index2, val2) {
-                                                    if (result.id == val2.id) {
-                                                        $(container).css({'color': 'red'});
-                                                    }
-                                                });
 
-                                                var markup = [];
-                                                window.Select2.util.markMatch(result.text, query.term, markup, escapeMarkup);
-                                                if (result.level) {
-                                                    var a = '';
-                                                    var i = result.level;
-                                                    while (i > 1) {
-                                                        a = a + '&nbsp;&nbsp;&nbsp;';
-                                                        i = i - 1;
-                                                    }
-                                                    return a + '&raquo;' + markup.join('');
-                                                }
-                                                return markup.join('');
-                                            },
-                                            formatSelection: function (result, container) {
-                                                $(container).css({'color': ''});
-                                                // Red if VIP
-                                                var ticketVip = false;
-                                                $.each(vip, function (index2, val2) {
-                                                    if (result.id == val2.id) {
-                                                        $(container).css({'color': 'red'});
-                                                        ticketVip = true;
-                                                    }
-                                                });
+                                           templateResult: function (result, container) {
+                                              // Red if VIP
+                                              $.each(vip, function (index2, val2) {
+                                                 if (result.id == val2.id) {
+                                                    $(container).css({'color': 'red'});
+                                                 }
+                                              });
 
-                                                if (ticketVip && $('#vip_img').length == 0) {
-                                                    $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
-                                                } else if (!alreadyVip) {
-                                                    $("#vip_img").remove();
-                                                }
+                                              if (result.level) {
+                                                 var a = '';
+                                                 var i = result.level;
+                                                 while (i > 1) {
+                                                    a = a + '&nbsp;&nbsp;&nbsp;';
+                                                    i = i - 1;
+                                                 }
+                                                 return a + '&raquo;' + result.text;
+                                              }
 
-                                                return result.text;
-                                            },
+                                              return result.text;
+                                           },
+                                           templateSelection: function (result, container) {
+                                              $(container).css({'color': ''});
+                                              // Red if VIP
+                                              var ticketVip = false;
+                                              $.each(vip, function (index2, val2) {
+                                                 if (result.id == val2.id) {
+                                                    $(container).css({'color': 'red'});
+                                                    ticketVip = true;
+                                                 }
+                                              });
+
+                                              if (ticketVip && $('#vip_img').length == 0) {
+                                                  $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
+                                              } else if (alreadyVip) {
+                                                 $("#vip_img").remove();
+                                              }
+
+                                              return result.text;
+                                           },
                                         });
                                     }
                                 });
