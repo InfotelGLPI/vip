@@ -103,7 +103,6 @@
                                         // Replace requester dropdown select2
                                         $("select[name='" + inputName + "']").select2({
                                             width: '80%',
-                                            closeOnSelect: false,
                                             minimumInputLength: 0,
                                             quietMillis: 100,
                                             minimumResultsForSearch: object.params['minimumResultsForSearch'],
@@ -190,10 +189,9 @@
 
                                               if (ticketVip && $('#vip_img').length == 0) {
                                                   $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
-                                              } else if (alreadyVip) {
+                                              } else if (!ticketVip && !alreadyVip) {
                                                  $("#vip_img").remove();
-                                              }
-
+                                              } 
                                               return result.text;
                                            },
                                         });
