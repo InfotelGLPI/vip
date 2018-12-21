@@ -72,7 +72,7 @@ function plugin_vip_uninstall() {
 
    //drop rules
    $Rule    = new Rule();
-   $a_rules = $Rule->find("`sub_type`='PluginVipRuleVip'");
+   $a_rules = $Rule->find(['sub_type' => 'PluginVipRuleVip']);
    foreach ($a_rules as $data) {
       $Rule->delete($data);
    }

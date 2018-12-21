@@ -109,7 +109,7 @@ class PluginVipGroup extends CommonDBTM {
    function getVipUsers() {
       $dbu = new DbUtils();
 
-      $groups = $this->find("`isvip` = 1");
+      $groups = $this->find(['isvip' => 1]);
       if (isset($groups[0])) {
          unset($groups[0]);
       }
