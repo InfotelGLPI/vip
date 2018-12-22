@@ -87,17 +87,23 @@ if ($one_item < 0) {
                                       $_POST['value'], $used, $searchText, $start,
                                       intval($_POST['page_limit']));
 } else {
-   $query = "SELECT DISTINCT `glpi_users`.*
-             FROM `glpi_users`
-             WHERE `glpi_users`.`id` = '$one_item';";
-   $result = $DB->query($query);
+   $iterator = $DB->request([
+                'FROM'  => 'glpi_users',
+                'WHERE' => [
+                   'id' => $one_item,
+                ],
+             ]);
+   //$query = "SELECT DISTINCT `glpi_users`.*
+   //          FROM `glpi_users`
+   //          WHERE `glpi_users`.`id` = '$one_item';";
+   //$result = $DB->query($query);
 }
 $users = [];
 
 // Count real items returned
 $count = 0;
-if ($DB->numrows($result)) {
-   while ($data = $DB->fetch_assoc($result)) {
+if (count($result)) {
+         while ($data = $result->next()) {
       $users[$data["id"]] = formatUserName($data["id"], $data["name"], $data["realname"],
                                            $data["firstname"]);
       $logins[$data["id"]] = $data["name"];

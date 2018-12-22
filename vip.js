@@ -205,10 +205,10 @@
                                 && (option.url.indexOf('vip/ajax/loadscripts.php') > 0 || option.url.indexOf('common.tabs.php') > 0)) {
 
                                 setTimeout(function () {
-                                    var item_bloc = $("div[class='actor-content'] div[class='actor_row'] img[src*='user.png']");
+                                    var item_bloc = $("div[class='actor-content'] div[class='actor_row'] i[class*='fa-user']");
                                     if (
                                         item_bloc.length != 0
-                                        && item_bloc[0].nextSibling.nodeValue != null
+                                        //&& item_bloc[0].nextSibling.nodeValue != null
                                         &&
                                         $("span[id*='vip_requester']").length == 0) {
                                         $.ajax({
@@ -221,20 +221,20 @@
                                             },
                                             success: function (response, opts) {
                                                 var ticketVip = false;
-
                                                 $.each(vip, function (index, val) {
-
                                                     $.each(response.used, function (index2, val2) {
-
-                                                        var requesterText = item_bloc[index2].nextSibling;
-                                                        if (val.id == val2 && requesterText.nodeValue != null) {
-                                                            $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
-                                                            $(requesterText).remove();
-                                                            ticketVip = true;
+                                                         if (item_bloc[index2].nextSibling.nextSibling != null) {
+                                                           var requesterText = item_bloc[index2].nextSibling.nextSibling;
+                                                           if (val.id == val2
+                                                            && requesterText.nodeValue != null
+                                                            ) {
+                                                               $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
+                                                               $(requesterText).remove();
+                                                               ticketVip = true;
+                                                           }
                                                         }
                                                     });
                                                 });
-
                                                 if (ticketVip && $('#vip_img').length == 0) {
                                                     $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
                                                 }

@@ -161,7 +161,7 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
       case 'Ticket':
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
-               if (PluginVipTicket::isTicketVip($data[0][0]['name'])) {
+               if (PluginVipTicket::isTicketVip($data["id"])) {
                   return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' >";
                }
                break;
