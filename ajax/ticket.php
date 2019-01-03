@@ -55,7 +55,7 @@ switch ($_POST['action']) {
          }
 
          $params = ['used'        => $used,
-                         'entities_id' => $ticket->fields['entities_id']];
+                    'entities_id' => $ticket->fields['entities_id']];
       }
 
       echo json_encode($params);

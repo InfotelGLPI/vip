@@ -58,18 +58,19 @@ class PluginVipTicket extends CommonDBTM {
       global $DB;
 
       $isvip = false;
+      if ($ticketid > 0) {
+         $userquery  = "SELECT users_id
+                        FROM glpi_tickets_users
+                        WHERE type = " . CommonITILActor::REQUESTER . "
+                        AND tickets_id = " . $ticketid;
+         $userresult = $DB->query($userquery);
 
-      $userquery  = "SELECT users_id
-                     FROM glpi_tickets_users
-                     WHERE type = " . CommonITILActor::REQUESTER . "
-                     AND tickets_id = " . $ticketid;
-      $userresult = $DB->query($userquery);
-
-      while ($uids = mysqli_fetch_object($userresult)) {
-         foreach ($uids as $uid) {
-            $isuservip = self::isUserVip($uid);
-            if ($isuservip) {
-               $isvip = true;
+         while ($uids = mysqli_fetch_object($userresult)) {
+            foreach ($uids as $uid) {
+               $isuservip = self::isUserVip($uid);
+               if ($isuservip) {
+                  $isvip = true;
+               }
             }
          }
       }

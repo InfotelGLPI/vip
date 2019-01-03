@@ -131,8 +131,7 @@ class PluginVipRuleVip extends Rule {
     *
     * @return the
     */
-   function executeActions($output, $params, $input = []) {
-
+   function executeActions($output, $params, array $input = []) {
       if (count($this->actions)) {
          foreach ($this->actions as $action) {
             switch ($action->fields["action_type"]) {

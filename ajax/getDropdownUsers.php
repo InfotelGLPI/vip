@@ -83,21 +83,27 @@ if (isset($_POST['entity_restrict'])) {
 if ($one_item < 0) {
    $start  = intval(($_POST['page']-1)*$_POST['page_limit']);
    $searchText = (isset($_POST['searchText']) ? $_POST['searchText'] : null);
-   $result = User::getSqlSearchResult(false, $_POST['right'], $entity_restrict,
+   $iterator = User::getSqlSearchResult(false, $_POST['right'], $entity_restrict,
                                       $_POST['value'], $used, $searchText, $start,
                                       intval($_POST['page_limit']));
 } else {
-   $query = "SELECT DISTINCT `glpi_users`.*
-             FROM `glpi_users`
-             WHERE `glpi_users`.`id` = '$one_item';";
-   $result = $DB->query($query);
+   $iterator = $DB->request([
+                'FROM'  => 'glpi_users',
+                'WHERE' => [
+                   'id' => $one_item,
+                ],
+             ]);
+   //$query = "SELECT DISTINCT `glpi_users`.*
+   //          FROM `glpi_users`
+   //          WHERE `glpi_users`.`id` = '$one_item';";
+   //$result = $DB->query($query);
 }
 $users = [];
 
 // Count real items returned
 $count = 0;
-if ($DB->numrows($result)) {
-   while ($data = $DB->fetch_assoc($result)) {
+if (count($iterator)) {
+         while ($data = $iterator->next()) {
       $users[$data["id"]] = formatUserName($data["id"], $data["name"], $data["realname"],
                                            $data["firstname"]);
       $logins[$data["id"]] = $data["name"];
