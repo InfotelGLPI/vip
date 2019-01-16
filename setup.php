@@ -27,10 +27,57 @@
  --------------------------------------------------------------------------
  */
 
+define('PLUGIN_VIP_VERSION', '1.6.0');
+
+// Init the hooks of the plugins -Needed
+function plugin_init_vip() {
+
+   global $PLUGIN_HOOKS;
+
+   $PLUGIN_HOOKS['csrf_compliant']['vip'] = true;
+
+   Plugin::registerClass('PluginVipProfile', ['addtabon' => ['Profile']]);
+   $PLUGIN_HOOKS['change_profile']['vip'] = ['PluginVipProfile', 'changeProfile'];
+
+   if (Session::haveRight('plugin_vip', UPDATE)) {
+      Plugin::registerClass('PluginVipGroup', ['addtabon' => ['Group']]);
+      $PLUGIN_HOOKS['use_massive_action']['vip'] = 1;
+      Plugin::registerClass('PluginVipTicket');
+   }
+
+   if (class_exists('PluginMydashboardMenu')) {
+      $PLUGIN_HOOKS['mydashboard']['vip'] = ["PluginVipDashboard"];
+   }
+
+   if (Session::haveRight('plugin_vip', READ)) {
+      $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip.js';
+      $PLUGIN_HOOKS['javascript']['vip']       = [
+          "/plugins/vip/vip.js",
+      ];
+      if (class_exists('PluginVipTicket')) {
+         foreach (PluginVipTicket::$types as $item) {
+            if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], strtolower($item) . ".form.php") !== false) {
+               $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip_load_scripts.js';
+               $PLUGIN_HOOKS['javascript']['vip']       = [
+                   "/plugins/vip/vip_load_scripts.js",
+               ];
+            }
+         }
+      }
+   }
+
+   $PLUGIN_HOOKS['item_add']['vip']    = ['User' => ['PluginVipVip', 'afterAdd']];
+   $PLUGIN_HOOKS['item_update']['vip'] = ['User' => ['PluginVipVip', 'afterUpdate']];
+
+   Plugin::registerClass('PluginVipRuleVipCollection', [
+       'rulecollections_types' => true
+   ]);
+}
+
 function plugin_version_vip() {
 
    return ['name'           => "VIP",
-           'version'        => '1.6.0',
+           'version'        => PLUGIN_VIP_VERSION,
            'author'         => 'Probesys & Infotel',
            'license'        => 'GPLv2+',
            'homepage'       => 'https://github.com/InfotelGLPI/vip',
@@ -59,48 +106,4 @@ function plugin_vip_check_prerequisites() {
 //may display messages or add to message after redirect
 function plugin_vip_check_config() {
    return true;
-}
-
-function plugin_init_vip() {
-
-   global $PLUGIN_HOOKS;
-
-   $PLUGIN_HOOKS['csrf_compliant']['vip'] = true;
-
-   Plugin::registerClass('PluginVipProfile', ['addtabon' => ['Profile']]);
-   $PLUGIN_HOOKS['change_profile']['vip'] = ['PluginVipProfile', 'changeProfile'];
-
-   if (Session::haveRight('plugin_vip', UPDATE)) {
-      Plugin::registerClass('PluginVipGroup', ['addtabon' => ['Group']]);
-      $PLUGIN_HOOKS['use_massive_action']['vip'] = 1;
-      Plugin::registerClass('PluginVipTicket');
-   }
-
-   if (class_exists('PluginMydashboardMenu')) {
-      $PLUGIN_HOOKS['mydashboard']['vip'] = ["PluginVipDashboard"];
-   }
-
-   if (Session::haveRight('plugin_vip', READ)) {
-      $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip.js';
-      $PLUGIN_HOOKS['javascript']['vip']       = [
-         "/plugins/vip/vip.js",
-      ];
-      if (class_exists('PluginVipTicket')) {
-         foreach (PluginVipTicket::$types as $item) {
-            if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], strtolower($item) . ".form.php") !== false) {
-               $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip_load_scripts.js';
-               $PLUGIN_HOOKS['javascript']['vip']       = [
-                  "/plugins/vip/vip_load_scripts.js",
-               ];
-            }
-         }
-      }
-   }
-
-   $PLUGIN_HOOKS['item_add']['vip']    = ['User' => ['PluginVipVip', 'afterAdd']];
-   $PLUGIN_HOOKS['item_update']['vip'] = ['User' => ['PluginVipVip', 'afterUpdate']];
-
-   Plugin::registerClass('PluginVipRuleVipCollection', [
-      'rulecollections_types' => true
-   ]);
 }
