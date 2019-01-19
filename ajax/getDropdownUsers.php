@@ -80,10 +80,11 @@ if (isset($_POST['entity_restrict'])) {
    $entity_restrict = Toolbox::jsonDecode($_POST['entity_restrict']);
 }
 
+$iterator = [];
 if ($one_item < 0) {
    $start  = intval(($_POST['page']-1)*$_POST['page_limit']);
    $searchText = (isset($_POST['searchText']) ? $_POST['searchText'] : null);
-   $result = User::getSqlSearchResult(false, $_POST['right'], $entity_restrict,
+   $iterator = User::getSqlSearchResult(false, $_POST['right'], $entity_restrict,
                                       $_POST['value'], $used, $searchText, $start,
                                       intval($_POST['page_limit']));
 } else {
