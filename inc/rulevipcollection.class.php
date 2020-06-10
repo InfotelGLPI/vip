@@ -39,7 +39,10 @@ class PluginVipRuleVipCollection extends RuleCollection {
    // From RuleCollection
    public static $rightname   = 'plugin_vip';
    public        $menu_option = 'vip';
-
+  
+   static function canView() {
+      return Session::haveRight(self::$rightname, UPDATE);
+   }
    /**
     * @return translated
     */

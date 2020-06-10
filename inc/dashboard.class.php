@@ -86,7 +86,7 @@ class PluginVipDashboard extends CommonGLPI {
             $tickets = [];
 
             if ($nb) {
-               while ($data = $DB->fetch_assoc($result)) {
+               while ($data = $DB->fetchAssoc($result)) {
 
                   $ticket = new Ticket();
                   $ticket->getFromDB($data['tickets_id']);
