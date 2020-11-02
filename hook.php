@@ -162,7 +162,7 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
                if (PluginVipTicket::isTicketVip($data["id"])) {
-                  return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' >";
+                  return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
                }
                break;
          }
@@ -171,7 +171,7 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
                if ($data[$num][0]['name']) {
-                  return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' >";
+                  return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
                }
                break;
          }
