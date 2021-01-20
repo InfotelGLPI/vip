@@ -37,15 +37,11 @@
         // Start the plugin
         function init() {
 //            $(document).ready(function () {
-            var path = 'plugins/vip/';
-            var url = window.location.href.replace(/front\/.*/, path);
-            if (window.location.href.indexOf('plugins') > 0) {
-                url = window.location.href.replace(/plugins\/.*/, path);
-            }
+            var path = CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip;
 
             // Send data
             $.ajax({
-                url: url + 'ajax/loadscripts.php',
+                url: path + '/ajax/loadscripts.php',
                 type: "POST",
                 dataType: "html",
                 data: 'action=load',

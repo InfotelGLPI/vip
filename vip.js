@@ -92,7 +92,7 @@
                             ) {
                                 // Get ticket informations
                                 $.ajax({
-                                    url: object.params['root_doc'] + '/plugins/vip/ajax/ticket.php',
+                                    url: CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip+'/ajax/ticket.php',
                                     type: "POST",
                                     dataType: "json",
                                     data: {
@@ -107,7 +107,7 @@
                                             quietMillis: 100,
                                             minimumResultsForSearch: object.params['minimumResultsForSearch'],
                                             ajax: {
-                                                url: object.params['root_doc'] + '/plugins/vip/ajax/getDropdownUsers.php',
+                                                url: CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip+'/ajax/getDropdownUsers.php',
                                                 dataType: 'json',
                                                 type: 'POST',
                                                 data: function (term, page) {
@@ -139,7 +139,7 @@
                                                         };
                                                         callback(data);
                                                     } else {
-                                                        $.ajax(object.params['root_doc'] + '/plugins/vip/ajax/getDropdownUsers.php', {
+                                                        $.ajax(CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip+'/ajax/getDropdownUsers.php', {
                                                             data: {
                                                                 all: 0,
                                                                 right: "all",
@@ -188,7 +188,7 @@
                                               });
 
                                               if (ticketVip && $('#vip_img').length == 0) {
-                                                  $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
+                                                  $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + CFG_GLPI.root_doc + "/" + GLPI_PLUGINS_PATH.vip + "/pics/vip.png'>");
                                               } else if (!ticketVip && !alreadyVip) {
                                                  $("#vip_img").remove();
                                               } 
@@ -212,7 +212,7 @@
                                         &&
                                         $("span[id*='vip_requester']").length == 0) {
                                         $.ajax({
-                                            url: object.params['root_doc'] + '/plugins/vip/ajax/ticket.php',
+                                            url: CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip+'/ajax/ticket.php',
                                             type: "POST",
                                             dataType: "json",
                                             data: {
@@ -236,7 +236,7 @@
                                                     });
                                                 });
                                                 if (ticketVip && $('#vip_img').length == 0) {
-                                                    $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + object.params['root_doc'] + "/plugins/vip/pics/vip.png'>");
+                                                    $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + CFG_GLPI.root_doc + "/" + GLPI_PLUGINS_PATH.vip + "/pics/vip.png'>");
                                                 }
                                             }
                                         });

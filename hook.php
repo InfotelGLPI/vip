@@ -31,7 +31,7 @@ function plugin_vip_install() {
    global $DB;
    // Création de la table uniquement lors de la première installation
    if (!$DB->tableExists("glpi_plugin_vip_groups")) {
-      $DB->runFile(GLPI_ROOT . "/plugins/vip/install/sql/empty-1.5.0.sql");
+      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/empty-1.5.0.sql");
    }
 
    if ($DB->tableExists('glpi_plugin_vip_tickets')) {
@@ -41,7 +41,7 @@ function plugin_vip_install() {
          $DB->query("DROP TABLE IF EXISTS `$table`;");
       }
    }
-   include_once(GLPI_ROOT . "/plugins/vip/inc/profile.class.php");
+   include_once(Plugin::getPhpDir('vip')."/inc/profile.class.php");
    PluginVipProfile::initProfile();
    PluginVipProfile::createFirstAccess($_SESSION['glpiactiveprofile']['id']);
 
@@ -162,7 +162,7 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
                if (PluginVipTicket::isTicketVip($data["id"])) {
-                  return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
                }
                break;
          }
@@ -171,7 +171,7 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
                if ($data[$num][0]['name']) {
-                  return "<img src=\"" . $CFG_GLPI['root_doc'] . "/plugins/vip/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
                }
                break;
          }
