@@ -72,6 +72,9 @@ class PluginVipVip extends CommonDBTM {
             if (isset($criteria['field']) && isset($info[$criteria['field']]) && isset($info[$criteria['field']][0])) {
                $input[$criteria['field']] = $info[$criteria['field']][0];
             }
+            if (isset($info["dn"])) {
+               $input["dn"] = $info["dn"];
+            }
          }
 
          $ruleCollection = new PluginVipRuleVipCollection($user->fields['entities_id']);
@@ -83,7 +86,7 @@ class PluginVipVip extends CommonDBTM {
          if (isset($fields['groups_id'])) {
             $groupuser = new Group_User();
 
-            if (!$groupuser->getFromDBByCrit(["`users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id']])) {
+            if (!$groupuser->find(["`users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id']])) {
                $groupuser->add(['users_id'  => $user->getID(),
                                      'groups_id' => $fields['groups_id']]);
             }
@@ -116,6 +119,9 @@ class PluginVipVip extends CommonDBTM {
             if (isset($criteria['field']) && isset($info[$criteria['field']]) && isset($info[$criteria['field']][0])) {
                $input[$criteria['field']] = $info[$criteria['field']][0];
             }
+            if (isset($info["dn"])) {
+               $input["dn"] = $info["dn"];
+            }
          }
 
          $ruleCollection = new PluginVipRuleVipCollection($user->fields['entities_id']);
@@ -127,7 +133,7 @@ class PluginVipVip extends CommonDBTM {
          if (isset($fields['groups_id'])) {
             $groupuser = new Group_User();
 
-            if (!$groupuser->getFromDBByCrit(["`users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id']])) {
+            if (!$groupuser->find(["`users_id` = " . $user->getID() . " AND `groups_id` =" . $fields['groups_id']])) {
                $groupuser->add(['users_id'  => $user->getID(),
                                      'groups_id' => $fields['groups_id']]);
             }
