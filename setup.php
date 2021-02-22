@@ -27,7 +27,7 @@
  --------------------------------------------------------------------------
  */
 
-define('PLUGIN_VIP_VERSION', '1.7.1');
+define('PLUGIN_VIP_VERSION', '1.7.2');
 
 // Init the hooks of the plugins -Needed
 function plugin_init_vip() {
@@ -52,14 +52,14 @@ function plugin_init_vip() {
    if (Session::haveRight('plugin_vip', READ)) {
       $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip.js';
       $PLUGIN_HOOKS['javascript']['vip']       = [
-          "/plugins/vip/vip.js",
+          Plugin::getWebDir('vip') . "/vip.js",
       ];
       if (class_exists('PluginVipTicket')) {
          foreach (PluginVipTicket::$types as $item) {
             if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], strtolower($item) . ".form.php") !== false) {
                $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip_load_scripts.js';
                $PLUGIN_HOOKS['javascript']['vip']       = [
-                   "/plugins/vip/vip_load_scripts.js",
+                  Plugin::getWebDir('vip') . "/vip_load_scripts.js",
                ];
             }
          }
