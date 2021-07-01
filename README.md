@@ -12,7 +12,7 @@ Fonctionnalité du plugin
 Ce plugin permet d'indiquer dans l'interface du ticket si le demandeur du ticket fait partie d'un groupe VIP : 
 
 * Paramétrage dans l'interface du groupe :
-   - Création d'un groupe, indication dans l'onget "VIP" du paramètre si oui ou non "Groupe VIP"
+   - Création d'un groupe, indication dans l'onglet "VIP" du paramètre si oui ou non "Groupe VIP"
 
 * Indication dans l'interface du ticket par un logo "VIP" et colorisation du nom de l'utilisateur en rouge si le demandeur du ticket fait partie d'un groupe VIP
 
