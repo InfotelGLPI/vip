@@ -59,4 +59,45 @@ switch ($_POST['action']) {
       }
 
       echo json_encode($params);
+      break;
+   case 'getPrinter':
+      header('Content-Type: application/json; charset=UTF-8"');
+
+      $params = ['entities_id' => (is_array($_SESSION['glpiactiveentities']) ? json_encode(array_values($_SESSION['glpiactiveentities'])) : $_SESSION['glpiactiveentities']),
+                      'used'        => []];
+
+      if (isset($_POST['items_id'])) {
+         $printer = new Printer();
+         $printer->getFromDB($_POST['items_id']);
+
+         $used = [];
+         $used[] = $printer->fields['users_id'];
+
+
+         $params = ['used'        => $used,
+                    'entities_id' => $printer->fields['entities_id']];
+      }
+
+      echo json_encode($params);
+      break;
+   case 'getComputer':
+      header('Content-Type: application/json; charset=UTF-8"');
+
+      $params = ['entities_id' => (is_array($_SESSION['glpiactiveentities']) ? json_encode(array_values($_SESSION['glpiactiveentities'])) : $_SESSION['glpiactiveentities']),
+                      'used'        => []];
+
+      if (isset($_POST['items_id'])) {
+         $computer = new Computer();
+         $computer->getFromDB($_POST['items_id']);
+
+         $used = [];
+         $used[] = $computer->fields['users_id'];
+
+
+         $params = ['used'        => $used,
+                    'entities_id' => $computer->fields['entities_id']];
+      }
+
+      echo json_encode($params);
+      break;
 }

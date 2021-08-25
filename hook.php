@@ -106,6 +106,8 @@ function plugin_vip_getAddSearchOptions($itemtype) {
        && Session::haveRight('plugin_vip', READ)) {
       switch ($itemtype) {
          case 'Ticket':
+         case 'Computer':
+         case 'Printer':
             $rng1                         = 10100;
             $sopt[$rng1]['table']         = 'glpi_plugin_vip_groups';
             $sopt[$rng1]['field']         = 'isvip';
@@ -146,6 +148,24 @@ function plugin_vip_addLeftJoin($type, $ref_table, $new_table, $linkfield, &$alr
 
             return $out;
       }
+   } else if ($ref_table == 'glpi_printers') {
+      switch ($new_table) {
+         case "glpi_plugin_vip_groups" :
+//            $out = " LEFT JOIN `glpi_users` `glpi_users_VIP` ON (`glpi_printers`.`users_id` = `glpi_users_VIP`.`id`) ";
+            $out = " LEFT JOIN `glpi_groups_users` ON (`glpi_printers`.`users_id` = `glpi_groups_users`.`users_id`)";
+            $out .= " LEFT JOIN `glpi_plugin_vip_groups` ON (`glpi_groups_users`.`groups_id` = `glpi_plugin_vip_groups`.`id`)";
+
+            return $out;
+      }
+   } else if ($ref_table == 'glpi_computers') {
+      switch ($new_table) {
+         case "glpi_plugin_vip_groups" :
+            //            $out = " LEFT JOIN `glpi_users` `glpi_users_VIP` ON (`glpi_printers`.`users_id` = `glpi_users_VIP`.`id`) ";
+            $out = " LEFT JOIN `glpi_groups_users` ON (`glpi_computers`.`users_id` = `glpi_groups_users`.`users_id`)";
+            $out .= " LEFT JOIN `glpi_plugin_vip_groups` ON (`glpi_groups_users`.`groups_id` = `glpi_plugin_vip_groups`.`id`)";
+
+            return $out;
+      }
    }
 
    return "";
@@ -162,6 +182,24 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
                if (PluginVipTicket::isTicketVip($data["id"])) {
+                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+               }
+               break;
+         }
+         break;
+      case 'Printer':
+         switch ($table . '.' . $field) {
+            case "glpi_plugin_vip_groups.isvip" :
+               if (PluginVipTicket::isPrinterVip($data["id"])) {
+                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+               }
+               break;
+         }
+         break;
+      case 'Computer':
+         switch ($table . '.' . $field) {
+            case "glpi_plugin_vip_groups.isvip" :
+               if (PluginVipTicket::isComputerVip($data["id"])) {
                   return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
                }
                break;

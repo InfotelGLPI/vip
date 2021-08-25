@@ -33,7 +33,7 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginVipTicket extends CommonDBTM {
 
-   static $types = ['Ticket'];
+   static $types = ['Ticket','Printer','Computer'];
 
    static function isUserVip($uid) {
       global $DB;
@@ -73,6 +73,30 @@ class PluginVipTicket extends CommonDBTM {
                }
             }
          }
+      }
+      return $isvip;
+   }
+   static function isPrinterVip($printers_id) {
+      global $DB;
+
+      $isvip = false;
+      $printer = new Printer();
+      $printer->getFromDB($printers_id);
+      $isuservip = self::isUserVip($printer->getField('users_id'));
+      if ($isuservip) {
+         $isvip = true;
+      }
+      return $isvip;
+   }
+   static function isComputerVip($computers_id) {
+      global $DB;
+
+      $isvip = false;
+      $computer = new Computer();
+      $computer->getFromDB($computers_id);
+      $isuservip = self::isUserVip($computer->getField('users_id'));
+      if ($isuservip) {
+         $isvip = true;
       }
       return $isvip;
    }
