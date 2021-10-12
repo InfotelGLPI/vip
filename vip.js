@@ -160,7 +160,7 @@
                                               // Red if VIP
                                               $.each(vip, function (index2, val2) {
                                                  if (result.id == val2.id) {
-                                                    $(container).css({'color': 'red'});
+                                                    $(container).css({'color': val2.color});
                                                  }
                                               });
 
@@ -182,7 +182,7 @@
                                               var ticketVip = false;
                                               $.each(vip, function (index2, val2) {
                                                  if (result.id == val2.id) {
-                                                    $(container).css({'color': 'red'});
+                                                    $(container).css({'color': val2.color});
                                                     ticketVip = true;
                                                  }
                                               });
@@ -228,7 +228,7 @@
                                                            if (val.id == val2
                                                             && requesterText.nodeValue != null
                                                             ) {
-                                                               $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
+                                                               $("<span id='vip_requester" + index2 + "' style='color:"+val.color+"'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
                                                                $(requesterText).remove();
                                                                ticketVip = true;
                                                            }
@@ -346,7 +346,7 @@
                                             // Red if VIP
                                             $.each(vip, function (index2, val2) {
                                                 if (result.id == val2.id) {
-                                                    $(container).css({'color': 'red'});
+                                                    $(container).css({'color': val2.color});
                                                 }
                                             });
 
@@ -368,7 +368,7 @@
                                             var ticketVip = false;
                                             $.each(vip, function (index2, val2) {
                                                 if (result.id == val2.id) {
-                                                    $(container).css({'color': 'red'});
+                                                    $(container).css({'color': val2.color});
                                                     ticketVip = true;
                                                 }
                                             });
@@ -412,7 +412,7 @@
                                                         if (val.id == val2
                                                             && requesterText.nodeValue != null
                                                         ) {
-                                                            $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
+                                                            $("<span id='vip_requester" + index2 + "' style='color:"+val.color+"'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
                                                             $(requesterText).remove();
                                                             ticketVip = true;
                                                         }
@@ -530,7 +530,7 @@
                                             // Red if VIP
                                             $.each(vip, function (index2, val2) {
                                                 if (result.id == val2.id) {
-                                                    $(container).css({'color': 'red'});
+                                                    $(container).css({'color': val2.color});
                                                 }
                                             });
 
@@ -552,7 +552,7 @@
                                             var ticketVip = false;
                                             $.each(vip, function (index2, val2) {
                                                 if (result.id == val2.id) {
-                                                    $(container).css({'color': 'red'});
+                                                    $(container).css({'color': val2.color});
                                                     ticketVip = true;
                                                 }
                                             });
@@ -596,7 +596,7 @@
                                                         if (val.id == val2
                                                             && requesterText.nodeValue != null
                                                         ) {
-                                                            $("<span id='vip_requester" + index2 + "' class='red'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
+                                                            $("<span id='vip_requester" + index2 + "' style='color:"+val.color+"'>" + requesterText.nodeValue + "</span>").insertAfter(requesterText);
                                                             $(requesterText).remove();
                                                             ticketVip = true;
                                                         }

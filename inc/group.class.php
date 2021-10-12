@@ -67,6 +67,15 @@ class PluginVipGroup extends CommonDBTM {
       Dropdown::showYesNo("isvip", $this->fields["isvip"]);
       echo "</td></tr>";
 
+      echo "<tr class='tab_bg_1'>";
+      echo "<td>" . __('VIP color', 'vip') . "</td>";
+      echo "<td colspan='3'>";
+      $rand = mt_rand();
+      Html::showColorField('vip_color', ['value' => $this->fields["vip_color"], 'rand' => $rand]);
+
+      echo "</td></tr>";
+
+
       if ($canedit) {
          echo "<tr class='tab_bg_2'>";
          echo "<td class='center' colspan='2'>";
@@ -121,7 +130,8 @@ class PluginVipGroup extends CommonDBTM {
          $managers = $dbu->getAllDataFromTable('glpi_groups_users', $restrict);
 
          foreach ($managers as $manager) {
-            $vip[]['id'] = $manager['users_id'];
+            $vip[$manager['users_id']]['id'] = $manager['users_id'];
+            $vip[$manager['users_id']]['color'] = $groups[$manager['groups_id']]['vip_color'];
          }
       }
 

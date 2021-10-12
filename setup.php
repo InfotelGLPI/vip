@@ -27,7 +27,7 @@
  --------------------------------------------------------------------------
  */
 
-define('PLUGIN_VIP_VERSION', '1.7.2');
+define('PLUGIN_VIP_VERSION', '1.7.3');
 
 // Init the hooks of the plugins -Needed
 function plugin_init_vip() {

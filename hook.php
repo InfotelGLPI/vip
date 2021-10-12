@@ -31,7 +31,7 @@ function plugin_vip_install() {
    global $DB;
    // Création de la table uniquement lors de la première installation
    if (!$DB->tableExists("glpi_plugin_vip_groups")) {
-      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/empty-1.5.0.sql");
+      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/empty-1.7.3.sql");
    }
 
    if ($DB->tableExists('glpi_plugin_vip_tickets')) {
@@ -40,6 +40,10 @@ function plugin_vip_install() {
       foreach ($tables as $table) {
          $DB->query("DROP TABLE IF EXISTS `$table`;");
       }
+   }
+
+   if (!$DB->fieldExists("glpi_plugin_vip_groups","vip_color")) {
+      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/update-1.7.3.sql");
    }
    include_once(Plugin::getPhpDir('vip')."/inc/profile.class.php");
    PluginVipProfile::initProfile();
