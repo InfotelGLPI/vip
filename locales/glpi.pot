@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GLPI - VIP plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-25 08:30+0000\n"
+"POT-Creation-Date: 2021-10-12 09:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,15 @@ msgstr ""
 msgid "VIP management"
 msgstr ""
 
-#: inc/group.class.php:66 inc/group.class.php:136
+#: inc/group.class.php:66 inc/group.class.php:146
 msgid "VIP group"
 msgstr ""
 
-#: inc/group.class.php:86 inc/profile.class.php:53 inc/profile.class.php:132
+#: inc/group.class.php:71
+msgid "VIP color"
+msgstr ""
+
+#: inc/group.class.php:95 inc/profile.class.php:53 inc/profile.class.php:132
 #: inc/vip.class.php:46
 msgid "VIP"
 msgstr ""
