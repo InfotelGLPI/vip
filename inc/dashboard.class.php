@@ -38,9 +38,16 @@ class PluginVipDashboard extends CommonGLPI {
    }
 
    function getWidgetsForItem() {
-      return [
-         $this->getType() . "1" => __("Tickets VIP", "mydashboard"),
+
+      $widgets = [
+         __('Tables', "mydashboard") => [
+            $this->getType() . "1" => ["title"   => __("Tickets VIP", "mydashboard"),
+                                        "icon"    => "fas fa-table",
+                                        "comment" => ""],
+         ],
       ];
+      return $widgets;
+
    }
 
    public function getWidgetContentForItem($widgetId) {
@@ -190,9 +197,8 @@ class PluginVipDashboard extends CommonGLPI {
             }
 
             $widget->setTabDatas($datas);
-            $widget->setOption("bSort", false);
+//            $widget->setOption("bSort", false);
             $widget->toggleWidgetRefresh();
-
 
             $widget->setWidgetTitle(__("Tickets VIP", "mydashboard"));
 
