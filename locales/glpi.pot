@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GLPI - VIP plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-06 14:25+0000\n"
+"POT-Creation-Date: 2021-12-08 10:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Tables"
 msgstr ""
 
-#: inc/dashboard.class.php:44 inc/dashboard.class.php:203
+#: inc/dashboard.class.php:44 inc/dashboard.class.php:189
 msgid "Tickets VIP"
 msgstr ""
 
@@ -29,19 +29,35 @@ msgstr ""
 msgid "VIP management"
 msgstr ""
 
-#: inc/group.class.php:66 inc/group.class.php:146
+#: inc/group.class.php:71 inc/group.class.php:228
 msgid "VIP group"
 msgstr ""
 
-#: inc/group.class.php:71
+#: inc/group.class.php:76
 msgid "VIP color"
 msgstr ""
 
-#: inc/group.class.php:95 inc/profile.class.php:53 inc/profile.class.php:132
+#: inc/group.class.php:84
+msgid "VIP Icon"
+msgstr ""
+
+#: inc/group.class.php:141 inc/profile.class.php:53 inc/profile.class.php:132
 #: inc/vip.class.php:46
 msgid "VIP"
 msgstr ""
 
 #: inc/rulevipcollection.class.php:51
 msgid "Rules for assigning a group"
+msgstr ""
+
+#: inc/ticket.class.php:146
+msgid "This ticket concerns at least one"
+msgstr ""
+
+#: inc/ticket.class.php:156
+msgid "This computer is used by a"
+msgstr ""
+
+#: inc/ticket.class.php:161
+msgid "This printer is used by a"
 msgstr ""
