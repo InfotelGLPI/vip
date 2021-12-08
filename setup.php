@@ -49,7 +49,8 @@ function plugin_init_vip() {
       $PLUGIN_HOOKS['mydashboard']['vip'] = ["PluginVipDashboard"];
    }
 
-   if (Session::haveRight('plugin_vip', READ)) {
+   if (Session::haveRight('plugin_vip', READ)
+   && $_SESSION["glpiactiveprofile"]["interface"] != "helpdesk") {
       $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip.js';
       $PLUGIN_HOOKS['javascript']['vip']       = [
           Plugin::getWebDir('vip') . "/vip.js",
@@ -65,7 +66,9 @@ function plugin_init_vip() {
          }
       }
    }
-   $PLUGIN_HOOKS['pre_show_item']['vip'] = ['PluginVipTicket', 'showVIPInfos'];
+   if ($_SESSION["glpiactiveprofile"]["interface"] != "helpdesk") {
+      $PLUGIN_HOOKS['pre_show_item']['vip'] = ['PluginVipTicket', 'showVIPInfos'];
+   }
    $PLUGIN_HOOKS['item_add']['vip']    = ['User' => ['PluginVipVip', 'afterAdd']];
    $PLUGIN_HOOKS['item_update']['vip'] = ['User' => ['PluginVipVip', 'afterUpdate']];
 
