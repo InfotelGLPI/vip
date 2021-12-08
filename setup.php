@@ -50,6 +50,7 @@ function plugin_init_vip() {
    }
 
    if (Session::haveRight('plugin_vip', READ)
+   && isset($_SESSION["glpiactiveprofile"]["interface"])
    && $_SESSION["glpiactiveprofile"]["interface"] != "helpdesk") {
       $PLUGIN_HOOKS['add_javascript']['vip'][] = 'vip.js';
       $PLUGIN_HOOKS['javascript']['vip']       = [
@@ -66,7 +67,8 @@ function plugin_init_vip() {
          }
       }
    }
-   if ($_SESSION["glpiactiveprofile"]["interface"] != "helpdesk") {
+   if (isset($_SESSION["glpiactiveprofile"]["interface"])
+   && $_SESSION["glpiactiveprofile"]["interface"] != "helpdesk") {
       $PLUGIN_HOOKS['pre_show_item']['vip'] = ['PluginVipTicket', 'showVIPInfos'];
    }
    $PLUGIN_HOOKS['item_add']['vip']    = ['User' => ['PluginVipVip', 'afterAdd']];
