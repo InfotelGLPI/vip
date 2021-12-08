@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GLPI - VIP plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 09:56+0000\n"
+"POT-Creation-Date: 2021-12-08 10:46+0000\n"
 "PO-Revision-Date: 2020-11-02 16:30+0000\n"
 "Last-Translator: Xavier CAILLAUD <thetsmr@gmail.com>, 2021\n"
 "Language-Team: French (France) (https://www.transifex.com/infotelGLPI/teams/79828/fr_FR/)\n"
@@ -21,7 +21,11 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: inc/dashboard.class.php:42 inc/dashboard.class.php:197
+#: inc/dashboard.class.php:43
+msgid "Tables"
+msgstr "Tableaux"
+
+#: inc/dashboard.class.php:44 inc/dashboard.class.php:189
 msgid "Tickets VIP"
 msgstr "Tickets VIP"
 
@@ -29,15 +33,19 @@ msgstr "Tickets VIP"
 msgid "VIP management"
 msgstr "Gestion VIP"
 
-#: inc/group.class.php:66 inc/group.class.php:146
+#: inc/group.class.php:71 inc/group.class.php:228
 msgid "VIP group"
 msgstr "Groupe VIP"
 
-#: inc/group.class.php:71
+#: inc/group.class.php:76
 msgid "VIP color"
 msgstr "Couleur VIP"
 
-#: inc/group.class.php:95 inc/profile.class.php:53 inc/profile.class.php:132
+#: inc/group.class.php:84
+msgid "VIP Icon"
+msgstr "Icône VIP"
+
+#: inc/group.class.php:141 inc/profile.class.php:53 inc/profile.class.php:132
 #: inc/vip.class.php:46
 msgid "VIP"
 msgstr "VIP"
@@ -45,3 +53,15 @@ msgstr "VIP"
 #: inc/rulevipcollection.class.php:51
 msgid "Rules for assigning a group"
 msgstr "Règles d'attribution d'un groupe"
+
+#: inc/ticket.class.php:146
+msgid "This ticket concerns at least one"
+msgstr "Ce ticket concerne au moins un"
+
+#: inc/ticket.class.php:156
+msgid "This computer is used by a"
+msgstr "Cet ordinateur est utilisé par un"
+
+#: inc/ticket.class.php:161
+msgid "This printer is used by a"
+msgstr "Cette imprimante est utilisée par un"
