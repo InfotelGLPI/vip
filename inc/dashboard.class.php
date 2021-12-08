@@ -73,8 +73,8 @@ class PluginVipDashboard extends CommonGLPI {
                                  `glpi_tickets`.`time_to_resolve` AS time_to_resolve
                         FROM `glpi_tickets`
                         LEFT JOIN `glpi_entities` ON (`glpi_tickets`.`entities_id` = `glpi_entities`.`id`)
-                        LEFT JOIN `glpi_groups_tickets` ON (`glpi_tickets`.`id` = `glpi_groups_tickets`.`tickets_id` AND `glpi_groups_tickets`.`type` = " . CommonITILActor::ASSIGN . ")
-                        
+                        LEFT JOIN `glpi_groups_tickets` ON (`glpi_tickets`.`id` = `glpi_groups_tickets`.`tickets_id` 
+                                                            AND `glpi_groups_tickets`.`type` = " . CommonITILActor::ASSIGN . ")
                         WHERE `glpi_tickets`.`is_deleted` = '0' 
                               AND `glpi_tickets`.`status` NOT IN (" . CommonITILObject::INCOMING . "," . CommonITILObject::SOLVED . "," . CommonITILObject::CLOSED . ") ";
             if (count($groups) > 0) {
@@ -83,7 +83,11 @@ class PluginVipDashboard extends CommonGLPI {
             $query .= "ORDER BY `glpi_tickets`.`time_to_resolve` DESC";//
 
             $widget  = PluginMydashboardHelper::getWidgetsFromDBQuery('table', $query);
-            $headers = [__('ID'), _n('Requester', 'Requesters', 2), __('Status'), __('Time to resolve'), __('Assigned to technicians')];
+            $headers = [__('ID'),
+                        _n('Requester', 'Requesters', 2),
+                        __('Status'),
+                        __('Time to resolve'),
+                        __('Assigned to technicians')];
             $widget->setTabNames($headers);
 
             $result = $DB->query($query);
@@ -97,16 +101,13 @@ class PluginVipDashboard extends CommonGLPI {
 
                   $ticket = new Ticket();
                   $ticket->getFromDB($data['tickets_id']);
-
                   if ($ticket->countUsers(CommonITILActor::REQUESTER)) {
                      $users = [];
                      foreach ($ticket->getUsers(CommonITILActor::REQUESTER) as $u) {
                         $users[] = $u['users_id'];
                      }
-
                      foreach ($users as $key => $val) {
-
-                        if (PluginVipTicket::isUserVip($val)) {
+                        if (PluginVipTicket::isUserVip($val) !== false) {
                            $tickets[] = $data;
                         }
                      }
@@ -177,21 +178,6 @@ class PluginVipDashboard extends CommonGLPI {
                      }
                   }
                   $datas[$i]["techs_id"] = $techdata;
-
-                  //$groupdata = '';
-                  //if ($ticket->countGroups(CommonITILActor::ASSIGN)) {
-                  //   foreach ($ticket->getGroups(CommonITILActor::ASSIGN) as $d) {
-                  //      $g = $d['groups_id'];
-                  //      if ($g) {
-                  //         $groupdata.= Dropdown::getDropdownName("glpi_groups",$g);
-                  //      }
-                  //      if ($ticket->countGroups(CommonITILActor::ASSIGN) > 1) {
-                  //         $groupdata .= "<br>";
-                  //      }
-                  //   }
-                  //}
-                  //$datas[$i]["groups_id"] = $groupdata;
-
                   $i++;
                }
             }
@@ -206,18 +192,4 @@ class PluginVipDashboard extends CommonGLPI {
             break;
       }
    }
-
-   /*private static function getSpecificEntityRestrict($table,$params){
-      if(isset($params['entities_id'])) {//&& ($params['entities_id'] != 0)
-         if(isset($params['sons']) && ($params['sons'] != 0)) {
-            $entities = " AND `$table`.`entities_id` IN  (".implode(",",getSonsOf("glpi_entities",$params['entities_id'])).") ";
-          } else {
-            $entities = " AND `$table`.`entities_id` = ".$params['entities_id']." ";
-         }
-      } else {
-         $entities = getEntitiesRestrictRequest("AND",$table);//,'','',isset($params['sons']) && ($params['sons'] != 0),true
-      }
-      return $entities;
-   }*/
-
 }

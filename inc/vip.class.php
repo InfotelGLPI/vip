@@ -139,7 +139,5 @@ class PluginVipVip extends CommonDBTM {
             }
          }
       }
-
    }
-
 }

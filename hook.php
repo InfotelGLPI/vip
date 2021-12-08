@@ -31,7 +31,7 @@ function plugin_vip_install() {
    global $DB;
    // Création de la table uniquement lors de la première installation
    if (!$DB->tableExists("glpi_plugin_vip_groups")) {
-      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/empty-1.7.3.sql");
+      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/empty-1.8.0.sql");
    }
 
    if ($DB->tableExists('glpi_plugin_vip_tickets')) {
@@ -45,6 +45,11 @@ function plugin_vip_install() {
    if (!$DB->fieldExists("glpi_plugin_vip_groups","vip_color")) {
       $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/update-1.7.3.sql");
    }
+
+   if (!$DB->fieldExists("glpi_plugin_vip_groups","vip_icon")) {
+      $DB->runFile(Plugin::getPhpDir('vip')."/install/sql/update-1.8.0.sql");
+   }
+
    include_once(Plugin::getPhpDir('vip')."/inc/profile.class.php");
    PluginVipProfile::initProfile();
    PluginVipProfile::createFirstAccess($_SESSION['glpiactiveprofile']['id']);
@@ -185,8 +190,11 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
       case 'Ticket':
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
-               if (PluginVipTicket::isTicketVip($data["id"])) {
-                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+               if ($id = PluginVipTicket::isTicketVip($data["id"])) {
+                  $name = PluginVipGroup::getVipName($id);
+                  $color = PluginVipGroup::getVipColor($id);
+                  $icon = PluginVipGroup::getVipIcon($id);
+                  return "<i class='fas $icon fa-2x' title=\"$name\" style='font-family:\"Font Awesome 5 Free\", \"Font Awesome 5 Brands\";color:$color'></i><p style='display:none'>1</p>";
                }
                break;
          }
@@ -194,8 +202,11 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
       case 'Printer':
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
-               if (PluginVipTicket::isPrinterVip($data["id"])) {
-                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+               if ($id = PluginVipTicket::isPrinterVip($data["id"])) {
+                  $name = PluginVipGroup::getVipName($id);
+                  $color = PluginVipGroup::getVipColor($id);
+                  $icon = PluginVipGroup::getVipIcon($id);
+                  return "<i class='fas $icon fa-2x' title=\"$name\" style='font-family:\"Font Awesome 5 Free\", \"Font Awesome 5 Brands\";color:$color'></i><p style='display:none'>1</p>";
                }
                break;
          }
@@ -203,8 +214,11 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
       case 'Computer':
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
-               if (PluginVipTicket::isComputerVip($data["id"])) {
-                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+               if ($id = PluginVipTicket::isComputerVip($data["id"])) {
+                  $name = PluginVipGroup::getVipName($id);
+                  $color = PluginVipGroup::getVipColor($id);
+                  $icon = PluginVipGroup::getVipIcon($id);
+                  return "<i class='fas $icon fa-2x' title=\"$name\" style='font-family:\"Font Awesome 5 Free\", \"Font Awesome 5 Brands\";color:$color'></i><p style='display:none'>1</p>";
                }
                break;
          }
@@ -213,7 +227,10 @@ function plugin_vip_giveItem($type, $ID, $data, $num) {
          switch ($table . '.' . $field) {
             case "glpi_plugin_vip_groups.isvip" :
                if ($data[$num][0]['name']) {
-                  return "<img src=\"" . Plugin::getWebDir('vip') . "/pics/vip.png\" alt='vip' ><p style='display:none'>1</p>";
+                  $name = PluginVipGroup::getVipName($data["id"]);
+                  $color = PluginVipGroup::getVipColor($data["id"]);
+                  $icon = PluginVipGroup::getVipIcon($data["id"]);
+                  return "<i class='fas $icon fa-2x' title=\"$name\" style='font-family:\"Font Awesome 5 Free\", \"Font Awesome 5 Brands\";color:$color'></i><p style='display:none'>1</p>";
                }
                break;
          }

@@ -25,7 +25,6 @@
  along with vip. If not, see <http://www.gnu.org/licenses/>.
  --------------------------------------------------------------------------
  */
-
 /**
  *  Load plugin scripts on page start
  */
@@ -36,12 +35,19 @@
 
         // Start the plugin
         function init() {
-//            $(document).ready(function () {
-            var path = CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip;
+            //            $(document).ready(function () {
+            var path = 'plugins/vip/';
+            var url = window.location.href.replace(/front\/.*/, path);
+            if (window.location.href.indexOf('plugins') > 0) {
+                url = window.location.href.replace(/plugins\/.*/, path);
+            }
+            if (window.location.href.indexOf('marketplace') > 0) {
+                url = window.location.href.replace(/marketplace\/.*/, path);
+            }
 
             // Send data
             $.ajax({
-                url: path + '/ajax/loadscripts.php',
+                url: url+'ajax/loadscripts.php',
                 type: "POST",
                 dataType: "html",
                 data: 'action=load',
@@ -52,11 +58,10 @@
                     }
                 }
             });
-//            });
         }
 
         return this;
-    }
+    };
 }(jQuery));
 
 $(document).vip_load_scripts();

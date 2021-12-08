@@ -27,7 +27,7 @@
  --------------------------------------------------------------------------
  */
 
-define('PLUGIN_VIP_VERSION', '1.7.3');
+define('PLUGIN_VIP_VERSION', '1.8.0');
 
 // Init the hooks of the plugins -Needed
 function plugin_init_vip() {
@@ -65,7 +65,7 @@ function plugin_init_vip() {
          }
       }
    }
-
+   $PLUGIN_HOOKS['pre_show_item']['vip'] = ['PluginVipTicket', 'showVIPInfos'];
    $PLUGIN_HOOKS['item_add']['vip']    = ['User' => ['PluginVipVip', 'afterAdd']];
    $PLUGIN_HOOKS['item_update']['vip'] = ['User' => ['PluginVipVip', 'afterUpdate']];
 
@@ -83,27 +83,10 @@ function plugin_version_vip() {
            'homepage'       => 'https://github.com/InfotelGLPI/vip',
            'requirements'   => [
               'glpi' => [
-                 'min' => '9.5',
+                 'min' => '10.0',
+                 'max' => '11.0',
                  'dev' => false
               ]
            ]
    ];
-}
-
-function plugin_vip_check_prerequisites() {
-
-   if (version_compare(GLPI_VERSION, '9.5', 'lt')
-       || version_compare(GLPI_VERSION, '9.6', 'ge')) {
-      if (method_exists('Plugin', 'messageIncompatible')) {
-         echo Plugin::messageIncompatible('core', '9.5');
-      }
-      return false;
-   }
-   return true;
-}
-
-// Uninstall process for plugin : need to return true if succeeded
-//may display messages or add to message after redirect
-function plugin_vip_check_config() {
-   return true;
 }

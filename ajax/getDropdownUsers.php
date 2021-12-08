@@ -148,7 +148,6 @@ if (count($users)) {
    }
 }
 
-
 if (($one_item >= 0)
     && isset($datas[0])) {
    echo json_encode($datas[0]);

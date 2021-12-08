@@ -62,6 +62,11 @@ class PluginVipGroup extends CommonDBTM {
       echo "<tr><th colspan='2' class='center b'>" . __('VIP management', 'vip') . " : " . Dropdown::getDropdownName("glpi_groups", $this->fields["id"]);
       echo "</th></tr>";
 
+      echo "<td>" . __('Name') . "</td>";
+      echo "<td>";
+      echo Html::input('name', ['value' => $this->fields['name'], 'size' => 40]);
+      echo "</td>";
+
       echo "<tr class='tab_bg_1'>";
       echo "<td>" . __('VIP group', 'vip') . "</td><td>";
       Dropdown::showYesNo("isvip", $this->fields["isvip"]);
@@ -75,12 +80,40 @@ class PluginVipGroup extends CommonDBTM {
 
       echo "</td></tr>";
 
+      echo "<tr class='tab_bg_1'><td>";
+      echo __('VIP Icon', 'vip');
+      echo "</td>";
+      echo "<td colspan='2'>";
+      $icon_selector_id = 'icon_' . mt_rand();
+      echo Html::select(
+         'vip_icon',
+         [$this->fields['vip_icon'] => $this->fields['vip_icon']],
+         [
+            'id'       => $icon_selector_id,
+            'selected' => $this->fields['vip_icon'],
+            'style'    => 'width:175px;'
+         ]
+      );
+
+      echo Html::script('js/Forms/FaIconSelector.js');
+      echo Html::scriptBlock(<<<JAVASCRIPT
+         $(
+            function() {
+               var icon_selector = new GLPI.Forms.FaIconSelector(document.getElementById('{$icon_selector_id}'));
+               icon_selector.init();
+            }
+         );
+JAVASCRIPT
+      );
+
+      echo "</td>";
+      echo "</tr>";
 
       if ($canedit) {
          echo "<tr class='tab_bg_2'>";
          echo "<td class='center' colspan='2'>";
-         echo "<input type='hidden' name='id' value=$id>";
-         echo "<input type='submit' name='update_vip_group' value='" . __('Update') . "' class='submit'>";
+         echo Html::hidden('id', ['value' => $id]);
+         echo Html::submit(_sx('button', 'Update'), ['name' => 'update_vip_group', 'class' => 'btn btn-primary']);
          echo "</td></tr>";
       }
       echo "</table>";
@@ -88,6 +121,19 @@ class PluginVipGroup extends CommonDBTM {
       Html::closeForm();
    }
 
+   /**
+    * Get Tab Name used for itemtype
+    *
+    * NB : Only called for existing object
+    *      Must check right on what will be displayed + template
+    *
+    * @param CommonGLPI $item Item on which the tab need to be displayed
+    * @param boolean    $withtemplate is a template object ? (default 0)
+    *
+    * @return string tab name
+    **@since 0.83
+    *
+    */
    function getTabNameForItem(CommonGLPI $item, $withtemplate = 0) {
 
       if ($item->getType() == 'Group'
@@ -97,29 +143,38 @@ class PluginVipGroup extends CommonDBTM {
       return '';
    }
 
+   /**
+    * show Tab content
+    *
+    * @param CommonGLPI $item Item on which the tab need to be displayed
+    * @param integer    $tabnum tab number (default 1)
+    * @param boolean    $withtemplate is a template object ? (default 0)
+    *
+    * @return boolean
+    **@since 0.83
+    *
+    */
    static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
 
       if ($item->getType() == 'Group') {
          $grp = new self();
          $ID  = $item->getField('id');
          if (!$grp->getFromDB($ID)) {
-            $grp->createVip($ID);
+            $grp->add(['id' => $ID]);
          }
          $grp->showForm($ID);
       }
       return true;
    }
 
-   function createVip($ID) {
-
-      $this->add(['id' => $ID]);
-   }
-
+   /**
+    * @return array
+    */
    function getVipUsers() {
       $dbu = new DbUtils();
 
       $groups = $this->find(['isvip' => 1]);
-      
+
       if (isset($groups[0])) {
          unset($groups[0]);
       }
@@ -130,12 +185,39 @@ class PluginVipGroup extends CommonDBTM {
          $managers = $dbu->getAllDataFromTable('glpi_groups_users', $restrict);
 
          foreach ($managers as $manager) {
-            $vip[$manager['users_id']]['id'] = $manager['users_id'];
+            $vip[$manager['users_id']]['id']    = $manager['users_id'];
+            $vip[$manager['users_id']]['name'] = $groups[$manager['groups_id']]['name'];
             $vip[$manager['users_id']]['color'] = $groups[$manager['groups_id']]['vip_color'];
+            $vip[$manager['users_id']]['icon']  = $groups[$manager['groups_id']]['vip_icon'];
          }
       }
 
       return $vip;
+   }
+
+   static function getVipName($id) {
+      $grp = new self();
+      if ($grp->getFromDB($id)) {
+         return $grp->fields["name"];
+      }
+      return "VIP";
+   }
+
+   static function getVipColor($id) {
+
+      $grp = new self();
+      if ($grp->getFromDB($id)) {
+         return $grp->fields["vip_color"];
+      }
+      return "darkred";
+   }
+
+   static function getVipIcon($id) {
+      $grp = new self();
+      if ($grp->getFromDB($id)) {
+         return $grp->fields["vip_icon"];
+      }
+      return "fa-exclamation-triangle";
    }
 
    /**
@@ -146,6 +228,9 @@ class PluginVipGroup extends CommonDBTM {
       return ["PluginVipGroup:isvip" => __('Update') . " " . __('VIP group', 'vip')];
    }
 
+   /**
+    * @return array
+    */
    function getAddSearchOptions() {
 
       $sopt = [];
@@ -178,7 +263,7 @@ class PluginVipGroup extends CommonDBTM {
     * @see CommonDBTM::processMassiveActionsForOneItemtype()
     **/
    static function processMassiveActionsForOneItemtype(MassiveAction $ma, CommonDBTM $item,
-                                                       array $ids) {
+                                                       array         $ids) {
       $vip = new self();
       //We check if it's really a massive action of vip
       if (strpos($ma->getAction(), "plugin_vip_update") == -1) {
@@ -209,5 +294,4 @@ class PluginVipGroup extends CommonDBTM {
       }
       return $ma;
    }
-
 }
