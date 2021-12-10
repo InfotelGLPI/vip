@@ -104,7 +104,7 @@ $users = [];
 // Count real items returned
 $count = 0;
 if (count($iterator)) {
-         while ($data = $iterator->next()) {
+   foreach ($iterator as $data) {
       $users[$data["id"]] = formatUserName($data["id"], $data["name"], $data["realname"],
                                            $data["firstname"]);
       $logins[$data["id"]] = $data["name"];
