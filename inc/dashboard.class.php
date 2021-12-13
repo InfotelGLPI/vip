@@ -42,7 +42,7 @@ class PluginVipDashboard extends CommonGLPI {
       $widgets = [
          __('Tables', "mydashboard") => [
             $this->getType() . "1" => ["title"   => __("Tickets VIP", "mydashboard"),
-                                        "icon"    => "fas fa-table",
+                                        "icon"    => "ti ti-table",
                                         "comment" => ""],
          ],
       ];

@@ -87,7 +87,7 @@ class PluginVipRuleVip extends Rule {
          }
       }
       if (!$entity_as_criteria) {
-         echo "<input type='hidden' name='entities_id' value='" . $_SESSION["glpiactive_entity"] . "'>";
+         echo Html::hidden('entities_id', ['value' => $_SESSION["glpiactive_entity"]]);
       }
    }
 
