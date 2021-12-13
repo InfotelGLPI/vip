@@ -5,7 +5,7 @@ header('Content-Type: text/javascript');
 
 ?>
 
-var rootDoc = "<?php echo PLUGIN_VIP_WEBDIR; ?>";
+var root_vip_doc = "<?php echo PLUGIN_VIP_WEBDIR; ?>";
 (function ($) {
 
     $.fn.vip_load_scripts = function () {
@@ -15,7 +15,7 @@ var rootDoc = "<?php echo PLUGIN_VIP_WEBDIR; ?>";
         function init() {
             // Send data
             $.ajax({
-                url: rootDoc +'/ajax/loadscripts.php',
+                url: root_vip_doc +'/ajax/loadscripts.php',
                 type: "POST",
                 dataType: "html",
                 data: 'action=load',
