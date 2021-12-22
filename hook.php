@@ -31,7 +31,7 @@ function plugin_vip_install() {
    global $DB;
    // Création de la table uniquement lors de la première installation
    if (!$DB->tableExists("glpi_plugin_vip_groups")) {
-      $DB->runFile(PLUGIN_VIP_DIR. "/sql/empty-1.8.0.sql");
+      $DB->runFile(PLUGIN_VIP_DIR. "/install/sql/empty-1.8.0.sql");
    }
 
    if ($DB->tableExists('glpi_plugin_vip_tickets')) {
@@ -43,11 +43,11 @@ function plugin_vip_install() {
    }
 
    if (!$DB->fieldExists("glpi_plugin_vip_groups","vip_color")) {
-      $DB->runFile(PLUGIN_VIP_DIR. "/sql/update-1.7.3.sql");
+      $DB->runFile(PLUGIN_VIP_DIR. "/install/sql/update-1.7.3.sql");
    }
 
    if (!$DB->fieldExists("glpi_plugin_vip_groups","vip_icon")) {
-      $DB->runFile(PLUGIN_VIP_DIR. "/sql/update-1.8.0.sql");
+      $DB->runFile(PLUGIN_VIP_DIR. "/install/sql/update-1.8.0.sql");
    }
 
    include_once(PLUGIN_VIP_DIR."/inc/profile.class.php");
