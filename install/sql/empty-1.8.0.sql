@@ -2,9 +2,9 @@
 -- Structure de la table 'glpi_plugin_vip_groups'
 -- --------------------------------------------------------
 CREATE TABLE `glpi_plugin_vip_groups` (
-  `id` int(11) NOT NULL default 0 COMMENT 'RELATION to glpi_groups(id)',
+  `id` int unsigned NOT NULL default 0 COMMENT 'RELATION to glpi_groups(id)',
   `name` varchar(100) DEFAULT 'VIP',
-  `isvip` tinyint(1) default '0',
+  `isvip` tinyint default '0',
   `vip_color` varchar(10) DEFAULT '#ff0000' NOT NULL,
   `vip_icon` varchar(100) DEFAULT 'fa-exclamation-triangle',
   PRIMARY KEY (`id`)
