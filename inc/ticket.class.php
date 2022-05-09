@@ -51,8 +51,11 @@ class PluginVipTicket extends CommonDBTM {
                    AND `glpi_groups_users`.`users_id` = " . $uid;
 
       $result = $DB->query($vipquery);
-      while ($uids = $DB->fetchArray($result)) {
-         return $uids['id'];
+      $nb     = $DB->numrows($result);
+      if ($nb > 0) {
+         while ($uids = $DB->fetchArray($result)) {
+            return $uids['id'];
+         }
       }
       return false;
    }
@@ -73,8 +76,11 @@ class PluginVipTicket extends CommonDBTM {
                    WHERE `glpi_plugin_vip_groups`.`isvip` = 1";
 
       $result = $DB->query($vipquery);
-      while ($uids = $DB->fetchArray($result)) {
-         $vip[] = $uids['users_id'];
+      $nb     = $DB->numrows($result);
+      if ($nb > 0) {
+         while ($uids = $DB->fetchArray($result)) {
+            $vip[] = $uids['users_id'];
+         }
       }
       return $vip;
    }
@@ -93,11 +99,13 @@ class PluginVipTicket extends CommonDBTM {
                         WHERE `type` = " . CommonITILActor::REQUESTER . "
                         AND `tickets_id` = " . $ticketid;
          $userresult = $DB->query($userquery);
-
-         while ($uids = mysqli_fetch_object($userresult)) {
-            foreach ($uids as $uid) {
-               $isuservip = self::isUserVip($uid);
-               return $isuservip;
+         $nb     = $DB->numrows($userresult);
+         if ($nb > 0) {
+            while ($uids = $DB->fetchArray($userresult)) {
+               foreach ($uids as $uid) {
+                  $isuservip = self::isUserVip($uid);
+                  return $isuservip;
+               }
             }
          }
       }
