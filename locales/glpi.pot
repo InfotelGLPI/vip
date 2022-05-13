@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GLPI - VIP plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 09:37+0000\n"
+"POT-Creation-Date: 2022-05-09 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,14 +50,14 @@ msgstr ""
 msgid "Rules for assigning a group"
 msgstr ""
 
-#: inc/ticket.class.php:146
+#: inc/ticket.class.php:154
 msgid "This ticket concerns at least one"
 msgstr ""
 
-#: inc/ticket.class.php:156
+#: inc/ticket.class.php:164
 msgid "This computer is used by a"
 msgstr ""
 
-#: inc/ticket.class.php:161
+#: inc/ticket.class.php:169
 msgid "This printer is used by a"
 msgstr ""
