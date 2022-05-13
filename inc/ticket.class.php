@@ -43,20 +43,23 @@ class PluginVipTicket extends CommonDBTM {
    static function isUserVip($uid) {
       global $DB;
 
-      $vipquery = "SELECT `glpi_plugin_vip_groups`.`id`
+      if ($uid) {
+         $vipquery = "SELECT `glpi_plugin_vip_groups`.`id`
                    FROM `glpi_groups_users`
                    LEFT JOIN `glpi_plugin_vip_groups`
                      ON `glpi_plugin_vip_groups`.`id` = `glpi_groups_users`.`groups_id`
                    WHERE `glpi_plugin_vip_groups`.`isvip` = 1
                    AND `glpi_groups_users`.`users_id` = " . $uid;
 
-      $result = $DB->query($vipquery);
-      $nb     = $DB->numrows($result);
-      if ($nb > 0) {
-         while ($uids = $DB->fetchArray($result)) {
-            return $uids['id'];
+         $result = $DB->query($vipquery);
+         $nb     = $DB->numrows($result);
+         if ($nb > 0) {
+            while ($uids = $DB->fetchArray($result)) {
+               return $uids['id'];
+            }
          }
       }
+
       return false;
    }
 
@@ -102,10 +105,11 @@ class PluginVipTicket extends CommonDBTM {
          $nb     = $DB->numrows($userresult);
          if ($nb > 0) {
             while ($uids = $DB->fetchArray($userresult)) {
-               foreach ($uids as $uid) {
-                  $isuservip = self::isUserVip($uid);
+               $isuservip = self::isUserVip($uids['users_id']);
+               if ($isuservip > 0) {
                   return $isuservip;
                }
+
             }
          }
       }
