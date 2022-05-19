@@ -44,18 +44,19 @@ switch ($_POST['action']) {
       if (isset($_POST['items_id'])) {
          $ticket = new Ticket();
          $actor  = new Ticket_User();
-         $ticket->getFromDB($_POST['items_id']);
-         $actors = $actor->getActors($_POST['items_id']);
+         if($ticket->getFromDB($_POST['items_id'])) {
+            $actors = $actor->getActors($_POST['items_id']);
 
-         $used = [];
-         if (isset($actors[CommonITILActor::REQUESTER])) {
-            foreach ($actors[CommonITILActor::REQUESTER] as $requesters) {
-               $used[] = $requesters['users_id'];
+            $used = [];
+            if (isset($actors[CommonITILActor::REQUESTER])) {
+               foreach ($actors[CommonITILActor::REQUESTER] as $requesters) {
+                  $used[] = $requesters['users_id'];
+               }
             }
-         }
 
-         $params = ['used'        => $used,
-                    'entities_id' => $ticket->fields['entities_id']];
+            $params = ['used'        => $used,
+                       'entities_id' => $ticket->fields['entities_id']];
+         }
       }
 
       echo json_encode($params);
