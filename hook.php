@@ -98,8 +98,7 @@ function plugin_vip_uninstall() {
 
 function plugin_vip_getPluginsDatabaseRelations() {
 
-   $plugin = new Plugin();
-   if ($plugin->isActivated("vip"))
+   if (Plugin::isPluginActive("vip"))
       return [
          "glpi_groups" => ["glpi_plugin_vip_groups" => "id"]
       ];
