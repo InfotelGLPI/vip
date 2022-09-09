@@ -110,20 +110,22 @@
                                                 url: CFG_GLPI.root_doc+'/'+GLPI_PLUGINS_PATH.vip+'/ajax/getDropdownUsers.php',
                                                 dataType: 'json',
                                                 type: 'POST',
-                                                data: function (term, page) {
+                                                data: function (params) {
                                                     return {
                                                         all: 0,
                                                         right: 'all',
                                                         used: response.used,
                                                         entity_restrict: response.entities_id,
-                                                        searchText: term.term,
+                                                        searchText: params.term,
                                                         page_limit: object.params['page_limit'], // page size
-                                                        page: page, // page number
+                                                        page: params.page, // page number
                                                     };
                                                 },
-                                                results: function (data, page) {
+                                                processResults: function (data, page) {
                                                     var more = (data.count >= object.params['page_limit']);
-                                                    return {results: data.results, more: more};
+                                                    return {results: data.results, pagination: {
+                                                        more: more
+                                                    }};
                                                 }
                                             },
                                             initSelection: function (element, callback) {
@@ -191,7 +193,7 @@
                                                   $("div[class='responsive_hidden actor_title']").append("<br><br><img id='vip_img' src='" + CFG_GLPI.root_doc + "/" + GLPI_PLUGINS_PATH.vip + "/pics/vip.png'>");
                                               } else if (!ticketVip && !alreadyVip) {
                                                  $("#vip_img").remove();
-                                              } 
+                                              }
                                               return result.text;
                                            },
                                         });
